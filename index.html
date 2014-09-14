@@ -2,23 +2,44 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
+	<link rel="stylesheet" href="bower_components/normalize-css/normalize.css" />
     <link rel="stylesheet" href="css/styles.css" />
     <title>ngSlides</title>
 </head>
-<body ng-app="ngSlides">
+<body ng-app="ngSlides" ng-controller="SlidesCtrl">
 
     <presentation>
 
         <slide>
-            <h1>Title</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos, repudiandae.</p>
+	        <img src="https://angularjs.org/img/AngularJS-large.png" class="center" />
         </slide>
 
         <slide>
             <h1>Second slide</h1>
             <p>Lorem ipsum dolor sit amet.</p>
+	        <ul>
+		        <li>HTML</li>
+		        <li>CSS</li>
+		        <li>JavaScript</li>
+	        </ul>
         </slide>
 
+	    <slide>
+		    <h1>Slide №3</h1>
+		    <p>Lorem ipsum dolor sit amet.</p>
+	    </slide>
+
+	    <slide>
+		    <h1>Slide №4</h1>
+		    <p>Lorem ipsum dolor sit amet.</p>
+	    </slide>
+
+	    <slide>
+		    <h1>Slide №5</h1>
+		    <p>Lorem ipsum dolor sit amet.</p>
+	    </slide>
+
+	    <progress max="100" value="{{ progress }}">{{ progress }}%</progress>
     </presentation>
 
     <script src="bower_components/angular/angular.min.js"></script>
