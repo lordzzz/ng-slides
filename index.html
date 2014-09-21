@@ -5,15 +5,15 @@
     <link rel="stylesheet" href="dist/styles.min.css" />
     <title>ngSlides</title>
 </head>
-<body ng-app="ngSlides" ng-controller="SlidesCtrl">
+<body ng-app="ngSlides">
 
-    <presentation>
+    <presentation ng-switch on="currentSlide">
 
-        <slide>
+        <slide ng-switch-when="0">
 	        <img src="https://angularjs.org/img/AngularJS-large.png" class="center" />
         </slide>
 
-        <slide>
+        <slide ng-switch-when="1">
             <h1>Second slide</h1>
             <p>Lorem ipsum dolor sit amet.</p>
 	        <ul>
@@ -23,17 +23,17 @@
 	        </ul>
         </slide>
 
-	    <slide>
+	    <slide ng-switch-when="2">
 		    <h1>Slide №3</h1>
 		    <p>Lorem ipsum dolor sit amet.</p>
 	    </slide>
 
-	    <slide>
+	    <slide ng-switch-when="3">
 		    <h1>Slide №4</h1>
 		    <p>Lorem ipsum dolor sit amet.</p>
 	    </slide>
 
-	    <slide>
+	    <slide ng-switch-when="4">
 		    <h1>Slide №5</h1>
 		    <p>Lorem ipsum dolor sit amet.</p>
 	    </slide>

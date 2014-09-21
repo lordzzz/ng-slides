@@ -1,39 +1,27 @@
-(function () {
+(function (window, angular) {
    'use strict';
 
-    window.angular.module('ngSlides', [])
+    angular.module('ngSlides', ['ngAnimate'])
 	    .controller('SlidesCtrl', ['$scope', '$window', function ($scope, $window) {
 		    $scope.currentSlide = 0;
-		    $scope.slides = [];
+		    $scope.slidesCount = 0;
 		    $scope.progress = 0;
 
 		    $scope.$watch('currentSlide', function (newValue) {
-				$scope.progress = (newValue / $scope.slides.length) * 100;
+				$scope.progress = ((newValue + 1) / $scope.slidesCount) * 100;
 		    });
 
-		    $scope.visibilitySlide = function (i, visibility) {
-			    $scope.slides[i].css({
-				    visibility: visibility
-			    });
-		    };
-
 		    $scope.prevSlide = function () {
-			    if ($scope.currentSlide > 1) {
+			    if ($scope.currentSlide > 0) {
 				    $scope.currentSlide--;
 				    $scope.$apply();
-				    $scope.visibilitySlide($scope.currentSlide, 'hidden');
-				    $scope.visibilitySlide($scope.currentSlide - 1, 'visible');
 			    }
 		    };
 
 		    $scope.nextSlide = function () {
-			    if ($scope.currentSlide < $scope.slides.length) {
+			    if ($scope.currentSlide < $scope.slidesCount - 1) {
 				    $scope.currentSlide++;
 				    $scope.$apply();
-				    if ($scope.currentSlide > 1) {
-					    $scope.visibilitySlide($scope.currentSlide - 2, 'hidden');
-				    }
-				    $scope.visibilitySlide($scope.currentSlide - 1 , 'visible')
 			    }
 		    };
 
@@ -49,24 +37,34 @@
 				    }
 			    }
 		    });
-
-		    angular.element($window).bind('load', function() {
-			    $scope.nextSlide();
-		    });
 	    }])
         .directive('presentation', function () {
             return {
-                restrict: 'E'
+                restrict: 'E',
+	            controller: 'SlidesCtrl',
+	            link: function (scope, element, attrs) {
+		            // count directives 'ngSwitchWhen'
+		            angular.forEach(element[0].childNodes, function(obj){
+			            if (obj.nodeType === 8) {
+				            var value = obj.nodeValue.trim();
+				            if (value.search('ngSwitchWhen') != -1) {
+					            scope.slidesCount++;
+				            }
+			            }
+		            });
+		            // TODO:
+		            //scope.currentSlide = attrs.start || 0; // start slide
+		            //scope.animate = attr.animate || 'animate-bottom';
+	            }
             };
         })
         .directive('slide', function () {
             return {
                 restrict: 'E',
-	            link: function(scope, element) {
-		            element.addClass('slide-hide');
-					scope.slides.push(element);
+	            link: function postLink(scope, element, attrs) {
+		            element.addClass('animate-bottom');
 	            }
             };
         });
 
-}());
+}(window, angular));
