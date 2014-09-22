@@ -6,16 +6,16 @@ AngularJS module for creating presentations
 
 ## Install & Build & Run
 
-1. Install NPM packeges
+* Install NPM packeges
 ```
 npm install
 ```
-2. Install bower components
+* Install bower components
 ```
 bower install
 ```
-3. Build project
+* Build project
 ```
 grunt build
 ```
-4. Open index.html
+* Open index.html
