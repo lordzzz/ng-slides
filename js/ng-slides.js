@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular.module('ngSlides', ['ngAnimate'])
-		.controller('SlidesCtrl', ['$scope', '$window', function ($scope, $window) {
+		.controller('PresentationCtrl', ['$scope', '$window', function ($scope, $window) {
 			$scope.currentSlide = 0;
 			$scope.slidesCount = 0;
 			$scope.progress = 0;
@@ -10,6 +10,16 @@
 			$scope.$watch('currentSlide', function (newValue) {
 				$scope.progress = ((newValue + 1) / $scope.slidesCount) * 100;
 			});
+
+			$scope.startSlide = function () {
+				$scope.currentSlide = 0;
+				$scope.$apply();
+			};
+
+			$scope.endSlide = function () {
+				$scope.currentSlide = $scope.slidesCount - 1;
+				$scope.$apply();
+			};
 
 			$scope.prevSlide = function () {
 				if ($scope.currentSlide > 0) {
@@ -23,16 +33,6 @@
 					$scope.currentSlide++;
 					$scope.$apply();
 				}
-			};
-			
-			$scope.startSlide = function () {
-				$scope.currentSlide = 0;
-				$scope.$apply();
-			};
-			
-			$scope.endSlide = function () {
-				$scope.currentSlide = $scope.slidesCount-1;
-				$scope.$apply();
 			};
 
 			angular.element($window).bind('keydown', function (e) {
@@ -55,7 +55,7 @@
 		.directive('presentation', function () {
 			return {
 				restrict: 'E',
-				controller: 'SlidesCtrl',
+				controller: 'PresentationCtrl',
 				link: function (scope, element, attrs) {
 					// count directives 'ngSwitchWhen'
 					angular.forEach(element[0].childNodes, function (obj) {
