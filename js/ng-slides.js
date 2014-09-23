@@ -24,9 +24,25 @@
 					$scope.$apply();
 				}
 			};
+			
+			$scope.startSlide = function () {
+				$scope.currentSlide = 0;
+				$scope.$apply();
+			};
+			
+			$scope.endSlide = function () {
+				$scope.currentSlide = $scope.slidesCount-1;
+				$scope.$apply();
+			};
 
 			angular.element($window).bind('keydown', function (e) {
 				switch (e.keyCode) {
+				case 35:
+					$scope.endSlide();
+					break;
+				case 36:
+					$scope.startSlide();
+					break;
 				case 37:
 					$scope.prevSlide();
 					break;
