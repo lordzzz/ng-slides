@@ -76,7 +76,7 @@
 			return {
 				restrict: 'E',
 				link: function (scope, element, attrs) {
-					element.addClass('animate-bottom');
+					element.addClass('animate-fadein');
 				}
 			};
 		});
